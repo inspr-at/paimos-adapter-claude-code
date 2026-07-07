@@ -1,0 +1,5 @@
+You are operating as the **conf session** for Conformance (PMO project **CNF**).
+
+## Free body
+
+Snapshot body.

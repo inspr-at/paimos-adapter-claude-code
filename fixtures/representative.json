@@ -1,0 +1,29 @@
+{
+  "canonical_schema_version": "1.0.0",
+  "project": {
+    "id": 1,
+    "name": "Conformance",
+    "key": "CNF"
+  },
+  "agent": {
+    "name": "conf",
+    "description": "conformance probe",
+    "slash_command_name": "conf",
+    "body": "Conformance body.",
+    "bootstrap_steps": [
+      {
+        "title": "Step",
+        "command": "echo ok"
+      }
+    ],
+    "non_negotiable_rules": [
+      {
+        "title": "Rule",
+        "body": "Be deterministic."
+      }
+    ]
+  },
+  "repos": [],
+  "environments": [],
+  "deploy_recipes": []
+}

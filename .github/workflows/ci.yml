@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out adapter
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.11"
+
+      - name: Unit tests
+        run: go test ./...
+
+      - name: Build adapter
+        run: go build -o paimos-adapter-claude-code .
+
+      - name: Check out PAIMOS
+        uses: actions/checkout@v4
+        with:
+          repository: markus-barta/paimos
+          path: paimos
+
+      - name: Build current paimos CLI
+        run: go build -o "$GITHUB_WORKSPACE/paimos-cli" ./cmd/paimos
+        working-directory: paimos/backend
+
+      - name: Run adapter conformance
+        run: |
+          PAIMOS_ADAPTER_PATH="$(dirname "$GITHUB_WORKSPACE")" \
+            "$GITHUB_WORKSPACE/paimos-cli" skill test-adapter claude-code
