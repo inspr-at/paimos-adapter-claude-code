@@ -161,7 +161,7 @@ func renderBody(art *canonicalArtifact) string {
 
 	projectName := strOrFallback(art.Project.Name, art.Project.Key)
 	projectKey := strOrFallback(art.Project.Key, fmt.Sprintf("id=%d", art.Project.ID))
-	fmt.Fprintf(&b, "You are operating as the **%s session** for %s (PMO project **%s**).\n",
+	fmt.Fprintf(&b, "You are operating as the **%s session** for %s (PAIMOS project **%s**).\n",
 		art.Agent.Name, projectName, projectKey)
 
 	if hasLaneContent(art) {

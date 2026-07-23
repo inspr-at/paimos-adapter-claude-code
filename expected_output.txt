@@ -1,4 +1,4 @@
-You are operating as the **conf session** for Conformance (PMO project **CNF**).
+You are operating as the **conf session** for Conformance (PAIMOS project **CNF**).
 
 ## Free body
 

@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-const fixtureBon26 = `{
-  "project": {"id": 6, "name": "Bonelio 2026", "key": "BON26"},
+const fixtureContoso26 = `{
+  "project": {"id": 6, "name": "Contoso 2026", "key": "CON26"},
   "agent": {
     "name": "ops",
     "description": "Infra, deploys, runtime.",
@@ -23,7 +23,7 @@ const fixtureBon26 = `{
     ]
   },
   "repos": [
-    {"label": "bonelio26-backend", "url": "https://github.com/example/bonelio26-backend", "default_branch": "main"}
+    {"label": "contoso26-backend", "url": "https://github.com/example/contoso26-backend", "default_branch": "main"}
   ],
   "environments": [
     {"name": "staging", "url": "https://stg.example.com", "host_alias": "ops-staging", "host_ip": "10.0.0.5"}
@@ -34,12 +34,12 @@ const fixtureBon26 = `{
 }`
 
 func TestRenderClaudeCodeSkill(t *testing.T) {
-	res, err := render([]byte(fixtureBon26))
+	res, err := render([]byte(fixtureContoso26))
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, want := range []string{
-		"You are operating as the **ops session** for Bonelio 2026 (PMO project **BON26**)",
+		"You are operating as the **ops session** for Contoso 2026 (PAIMOS project **CON26**)",
 		"## Your lane",
 		"Infra, deploys, runtime.",
 		"## Bootstrap",
@@ -50,7 +50,7 @@ func TestRenderClaudeCodeSkill(t *testing.T) {
 		"backend-staging",
 		"## Free body",
 		"What ops owns",
-		"bonelio26-backend",
+		"contoso26-backend",
 		"ops-staging",
 	} {
 		if !strings.Contains(res.Content, want) {
@@ -93,15 +93,15 @@ func TestRunDescribeValidateRender(t *testing.T) {
 	}
 
 	out.Reset()
-	if err := run([]string{"validate", "--input", "-"}, strings.NewReader(fixtureBon26), &out); err != nil {
+	if err := run([]string{"validate", "--input", "-"}, strings.NewReader(fixtureContoso26), &out); err != nil {
 		t.Fatalf("validate: %v", err)
 	}
 
 	out.Reset()
-	if err := run([]string{"render", "--input", "-"}, strings.NewReader(fixtureBon26), &out); err != nil {
+	if err := run([]string{"render", "--input", "-"}, strings.NewReader(fixtureContoso26), &out); err != nil {
 		t.Fatalf("render: %v", err)
 	}
-	if !strings.Contains(out.String(), "Bonelio 2026") {
+	if !strings.Contains(out.String(), "Contoso 2026") {
 		t.Fatalf("render output unexpected: %s", out.String())
 	}
 }
