@@ -27,7 +27,7 @@ jobs:
       - name: Check out PAIMOS
         uses: actions/checkout@v4
         with:
-          repository: markus-barta/paimos
+          repository: inspr-at/paimos
           path: paimos
 
       - name: Build current paimos CLI
